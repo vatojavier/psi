@@ -227,5 +227,10 @@ def repeticion_partida(request):
 
 
 @login_required
+def jugar_vs_ia(request):
+    return render(request, "mouse_cat/jugarIA.html")
+
+
+@login_required
 def partida_terminada(request):
     return render(request, "mouse_cat/partida_terminada.html")

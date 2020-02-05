@@ -33,6 +33,7 @@ urlpatterns = [
     path("select_game/", views.select_game, name="select_game"),
     path("select_game/<int:game_id>/", views.select_game, name="select_game"),
     path("show_game/", views.show_game, name="show_game"),
+    path("IA/", views.jugar_vs_ia, name="vsIA"),
     path("move/", views.move_service, name="move"),
     path("repeticion/", views.repeticion_partida, name="repeticion"),
     path("final/", views.partida_terminada, name="fin_partida")

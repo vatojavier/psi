@@ -3,10 +3,11 @@
 {% load staticfiles %}
 
 {% block content %}
-<div style="text-align: center;" id="content">
+<!--<div style="text-align: center;" id="content">
     <ul>
         <tr>
-            <button><a href="{% url 'logout' %}">Logout</a></button>     
+            <a href="{% url 'logout' %}">Logout</a></button>
+            <button><a href="{% url 'vsIA' %}">Jugar contra IA</a></button>     
             <button><a href="{% url 'create_game' %}">Create game</a></button>
             <button><a href="{% url 'join_game' %}">Join game</a></button>
             <button><a href="{% url 'select_game' %}">Select game</a></button>
@@ -14,5 +15,32 @@
             <button><a href="{% url 'repeticion' %}">Ver última partida</a></button>
         </tr>
     </ul>
+</div>-->
+
+<script>
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("miBar");
+  if (x.className === "bar") {
+    x.className += " responsive";
+  } else {
+    x.className = "bar";
+  }
+} 
+</script>
+
+<div class="bar" id="miBar"> 
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'vsIA' %}">Jugar VS IA</a>     
+    <a href="{% url 'create_game' %}">Crear Partida</a>
+    <a href="{% url 'join_game' %}">Unirse a Partida</a>
+    <a href="{% url 'select_game' %}">Seleccionar Partida</a>
+    <a href="{% url 'show_game' %}">Continuar última partida</a>
+    <a href="{% url 'repeticion' %}">Repetición partida</a>
+
+    
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
 </div>
 {% endblock content %}

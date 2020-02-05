@@ -3,6 +3,7 @@
 <head>
     {% block extra_css %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% endblock extra_css %}
 
     {% block extra_js %}
@@ -15,32 +16,30 @@
 </head>
 
 <body id="body">
+    
     <div id="totalheader">
         <div id="title">
             {% block atitle %}
-                <h1>Juego del Ratón y el gato</h1>             
+                <a href="{% url 'index' %}" class="titulo">Ratón vs. Gato</a>
             {% endblock atitle %}
         </div>
         {% if request.user.is_authenticated %}
-            User: <span class="username">{{ request.user.username }}</span>
+            <span class="username">{{ request.user.username }}</span>
         {% endif %}
     </div>
 
-    
-<div class="cuadro">
-    {% block content %}
-    {% endblock content %}
+        
+    <div class="contenido">
+        {% block content %}
+        {% endblock content %}
 
 
-    {% block footer %}
-    {% endblock footer %}
-</div>
+        {% block footer %}
+        {% endblock footer %}
+    </div>
 
 
     
 </body>
 
-<footer class="foot">
-        <p>Antonio Javier Casado</p>
-</footer>
 </html>
