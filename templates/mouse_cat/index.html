@@ -7,7 +7,6 @@
     <ul>
         <tr>
             <button><a href="{% url 'logout' %}">Logout</a></button>     
-            <button><a href="{% url 'counter' %}">Counter</a></button>
             <button><a href="{% url 'create_game' %}">Create game</a></button>
             <button><a href="{% url 'join_game' %}">Join game</a></button>
             <button><a href="{% url 'select_game' %}">Select game</a></button>
@@ -15,8 +14,5 @@
             <button><a href="{% url 'repeticion' %}">Ver última partida</a></button>
         </tr>
     </ul>
-    <div class="imagen">
-        <img src="../../static/images/gatoraton.gif" alt="gatoraton">
-    </div>
 </div>
 {% endblock content %}

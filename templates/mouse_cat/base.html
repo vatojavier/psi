@@ -11,36 +11,29 @@
     {% block extra_head %}
     
     {% endblock extra_head %}
-    <title>{% block title %}PSI 2019-2020: Example of application{% endblock %}</title>
+    <title>{% block title %}PSI: Extraordinario{% endblock %}</title>
 </head>
 
 <body id="body">
     <div id="totalheader">
         <div id="title">
             {% block atitle %}
-                <MARQUEE BEHAVIOR=ALTERNATE DIRECTION=RIGHT SCROLLAMOUNT=20><h1 class="mVc">Mouse vs. Cats</h1></MARQUEE>              
+                <h1>Juego del Ratón y el gato</h1>             
             {% endblock atitle %}
         </div>
-            {% if request.user.is_authenticated %}
-                User: <span class="username">{{ request.user.username }}</span>
-            {% endif %}
-        <div id="header">
-            
-        </div>
+        {% if request.user.is_authenticated %}
+            User: <span class="username">{{ request.user.username }}</span>
+        {% endif %}
     </div>
-
-    <br>
 
     
 <div class="cuadro">
-    
     {% block content %}
     {% endblock content %}
 
 
     {% block footer %}
     {% endblock footer %}
-    
 </div>
 
 
@@ -48,6 +41,6 @@
 </body>
 
 <footer class="foot">
-        <p>Contacto: Jaime Pascual y Antonio Javier Casado</p>
-    </footer>
+        <p>Antonio Javier Casado</p>
+</footer>
 </html>
