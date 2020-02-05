@@ -1,0 +1,17 @@
+{% extends "mouse_cat/base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div style="padding-left: 10px;" class="welcome">
+    <h2 style="color: rgb(10, 0, 143);">¡¡WELCOME!!</h2>
+        <tr>
+            <button><a href="{% url 'login' %}">LOGIN</a></button>     
+            <button><a href="{% url 'signup' %}">SIGNUP</a></button>
+        </tr>
+
+        <div class="imagen">
+                <img src="../../static/images/gatoraton.gif" alt="gatoraton">
+        </div>
+</div>
+{% endblock content %}

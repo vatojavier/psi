@@ -1,0 +1,67 @@
+{% extends "mouse_cat/base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src= "{% static 'js/tablero.js' %}"></script>
+
+<div id="content">
+    <p>Game: <b>{{ game.id }}</b></p>
+    <!--<form id="move_form" method="post" action="{% url 'move' %}">-->
+        {% csrf_token %}
+        <p>
+            Cats: <b>{{ game.cat_user.username }}</b>
+            {% if game.cat_user.id == request.user.id %}
+                <blockquote class="cat">
+                    {% if game.cat_turn %}
+                        {{ move_form }}
+                        <!--<input type="submit" value="Move" />-->
+                        <p>Es tu turno</p>
+                    {% else %}
+                        Waiting for the mouse...
+                        <a style="margin-left:20px;font-weight:normal" href="{% url 'show_game' %}">Refresh</a>
+                    {% endif %}
+                </blockquote>
+            {% endif %}
+        </p>
+        <p>
+            Mouse: <b>{{ game.mouse_user.username }}</b>
+            {% if game.mouse_user.id == request.user.id %}
+                <blockquote class="mouse">
+                    {% if not game.cat_turn %}
+                        {{ move_form }}
+                        <!--<input type="submit" value="Move" />-->
+                        <p>Es tu turno</p>
+                    {% else %}
+                        Waiting for the cat...
+                        <a style="margin-left:20px;font-weight:normal" href="{% url 'show_game' %}">Refresh</a>
+                    {% endif %}
+                </blockquote>
+            {% endif %}
+        </p>
+    <!--</form>-->
+
+    {% if board %}
+        <table id="chess_board">
+        {% for item in board %}
+            {% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
+            <td ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="{{forloop.counter0}}" style='width:50px;height:50px;border:1px solid #000000;text-align:center;'>
+                {% if item ==  0 %}
+                {% elif item == 1 %}  
+                    <img src="{% static 'images/gato_tablero.png' %}" id="{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
+                {% else %}  
+                    <img src="{% static 'images/raton_tablero.png' %}" id="{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
+                {% endif %}
+            </td>
+            {% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {{msg_error}}
+
+    <p><button><a href="{% url 'landing' %}">Return to homepage</a></button></p>
+</div>
+{% endblock content %}
