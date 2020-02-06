@@ -10,7 +10,7 @@
 <div id="num-juego">
     <p>Game: <b>{{ game.id }}</b></p>
 </div>
-<a href="{% url 'show_game' %}">Refresh</a>
+<a href="{% url 'select_game' %}">Volver</a>
 
 <div class="content-game">
     <div class="tablero-izq">
@@ -48,7 +48,7 @@
                     {% if game.cat_user.id == request.user.id %}
                         {{ move_form }}
                         <!--<input type="submit" value="Move" />-->
-                        <p>Es tu turno</p>
+                        <p class="tu_turno">Es tu turno</p>
                     {% else %}
                         <br>
                         Waiting for the cat...
@@ -79,7 +79,7 @@
                         {% if game.mouse_user.id == request.user.id %}
                             {{ move_form }}
                             <!--<input type="submit" value="Move" />-->
-                            <p>Es tu turno</p>
+                            <p class="tu_turno">Es tu turno</p>
                         {% else %}
                             <br>
                             Waiting for the mouse...

@@ -17,7 +17,12 @@
                 {% for game in as_cat %}
                     <tr>
                         <th>{{ game.id }}</th>
-                        <th>turno</th>
+                        <th>{% if game.cat_turn %}
+                            <span class="tu_turno">TU TURNO</span>
+                            {% else %}
+                                Esperando Oponente
+                            {% endif %}
+                        </th>
                         <th>{{ game.mouse_user }}</th>
                         <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
                     </tr>
@@ -63,7 +68,12 @@
         {% for game in as_mouse %}
             <tr>
                 <th>{{ game.id }}</th>
-                <th>turno</th>
+                <th>{% if not game.cat_turn %}
+                    <span class="tu_turno">TU TURNO</span>
+                {% else %}
+                    Esperando Oponente
+                {% endif %}
+            </th>
                 <th>{{ game.cat_user }}</th>
                 <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
             </tr>
