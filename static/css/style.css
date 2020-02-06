@@ -100,11 +100,40 @@ body{
 }
 
 .info-juego #inf-jug-mouse{
-    border-top: 4px solid black;
+    border-top: 2px solid black;
     flex: 1;
 }
 
 /*----- /Juego -----*/
+
+/*----- Select-Game -----*/
+.content-select-game{
+    display: flex;
+    
+}
+
+.content-select-game #games_as_mouse{
+    margin-left: 40px;
+}
+
+table #tabla_games{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+#tabla_games td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    border-color: black;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+/*----- /Select-Game -----*/
+
 a{
     color: black;
     text-decoration:none;
