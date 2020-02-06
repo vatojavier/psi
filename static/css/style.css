@@ -109,8 +109,9 @@ body{
 /*----- Select-Game -----*/
 .content-select-game{
     display: flex;
-    
 }
+
+
 
 .content-select-game #games_as_mouse{
     margin-left: 40px;
@@ -132,6 +133,16 @@ table #tabla_games{
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
+@media screen and (max-width: 800px) {
+    .content-select-game{
+        display: block;
+}
+
+    .content-select-game #games_as_mouse{
+        margin-left: 0px;
+    }
+}
 /*----- /Select-Game -----*/
 
 a{
