@@ -109,22 +109,28 @@ def create_game_service(request):
 
 
 @login_required
-def join_game(request):
-    msg_error = ""
+def join_game(request, game_id=None):
+
     user = request.user
+    context_dict = {}
 
-    #  Se tiene que unir al de id disponible mas alto
-    game = Game.objects.filter(mouse_user__isnull=True). \
-        exclude(cat_user=user).order_by('-id').first()
+    if game_id is None:
+        games = Game.objects.filter(mouse_user__isnull=True). \
+            exclude(cat_user=user).order_by('-id')
 
-    if not game:
-        msg_error = "There is no available games|No hay juegos disponibles"
+        if games:
+            context_dict['partidas_disp'] = games
+        else:
+            context_dict['msg_error'] = "No hay partidas disponibles"
+
+        return render(request, 'mouse_cat/join_game.html', context_dict)
     else:
-        game.mouse_user = user
-        game.save()
-        game.full_clean()
-    return render(request, 'mouse_cat/join_game.html', {"game": game,
-                                                        "msg_error": msg_error})
+        game_selected = Game.objects.filter(id=game_id).first()
+        game_selected.mouse_user = user
+        game_selected.save()
+        game_selected.full_clean()
+        
+        return render(request, 'mouse_cat/join_game.html', context_dict)
 
 
 @login_required

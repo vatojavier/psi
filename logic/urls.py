@@ -29,9 +29,13 @@ urlpatterns = [
     path("signup/", views.signup_service, name="signup"),
     path("counter/", views.counter, name="counter"),
     path("create_game/", views.create_game_service, name="create_game"),
+
     path("join_game/", views.join_game, name="join_game"),
+    path("join_game/<int:game_id>", views.join_game, name="join_game"),
+
     path("select_game/", views.select_game, name="select_game"),
     path("select_game/<int:game_id>/", views.select_game, name="select_game"),
+
     path("show_game/", views.show_game, name="show_game"),
     path("IA/", views.jugar_vs_ia, name="vsIA"),
     path("move/", views.move_service, name="move"),
