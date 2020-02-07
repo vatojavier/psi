@@ -5,15 +5,32 @@
 <script src= "{% static 'js/join.js' %}"></script>
 
 <div id="content">
-    <h1>Join game</h1>
+    <h1>Unirse a partida como Ratón</h1>
     {% if msg_error %}
 
         <p class="error">ERROR: {{ msg_error }}</p>
     {% else %}
         {% for game in partidas_disp %}
-            <button onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> {{ game }}</button>
-            <a hidden class="btn_entrar_{{ game.id}}" href="{% url 'select_game' game.id %}">Entrar</a>
-            <p id="join_succes"></p>
+            <div class="tarjeta_join" id="tarjeta_join_{{game.id}}">
+                <div>
+                    <button onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> 
+                        {{ game.id }} <br>{{ game.cat_user }}
+                    </button>
+                </div>
+                
+                <div>
+                    <p hidden class="join_succes" id="join_succes_{{game.id}}">Te has unido</p>
+                </div>
+
+                
+                <div class="boton_entrar">
+                    <a hidden class="btn_entrar" id="btn_entrar_{{ game.id}}" href="{% url 'select_game' game.id %}">Jugar</a>
+                </div>
+                
+                
+            </div>
+
+            
         {% endfor %}
 
         <!--<p><b>{{ game.mouse_user.username }}</b> succesfully joined to game <b>{{ game.id }}</b>. The game can start!!!</p>-->

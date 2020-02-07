@@ -158,6 +158,22 @@ body{
 
 /*----- /Select-Game -----*/
 
+/*----- Join_Game -----*/
+.tarjeta_join{
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    
+}
+.tarjeta_join > div{
+    margin-left: 10px;
+}
+
+/*----- /Join_Game -----*/
+.btn_entrar{
+    color: green;
+}
+
 a{
     color: black;
     text-decoration:none;
