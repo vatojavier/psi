@@ -1,6 +1,9 @@
 {% extends "mouse_cat/base.html" %}
-
+{% load staticfiles %}
 {% block content %}
+
+<script src= "{% static 'js/join.js' %}"></script>
+
 <div id="content">
     <h1>Join game</h1>
     {% if msg_error %}
@@ -8,7 +11,9 @@
         <p class="error">ERROR: {{ msg_error }}</p>
     {% else %}
         {% for game in partidas_disp %}
-            <a href="{% url 'join_game' game.id %}"> {{ game }}</a><br>
+            <button onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> {{ game }}</button>
+            <a hidden class="btn_entrar_{{ game.id}}" href="{% url 'select_game' game.id %}">Entrar</a>
+            <p id="join_succes"></p>
         {% endfor %}
 
         <!--<p><b>{{ game.mouse_user.username }}</b> succesfully joined to game <b>{{ game.id }}</b>. The game can start!!!</p>-->

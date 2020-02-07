@@ -124,13 +124,12 @@ def join_game(request, game_id=None):
             context_dict['msg_error'] = "No hay partidas disponibles"
 
         return render(request, 'mouse_cat/join_game.html', context_dict)
-    else:
+    else:  # peticion de ajax
         game_selected = Game.objects.filter(id=game_id).first()
         game_selected.mouse_user = user
         game_selected.save()
         game_selected.full_clean()
-        
-        return render(request, 'mouse_cat/join_game.html', context_dict)
+        return HttpResponse()
 
 
 @login_required
