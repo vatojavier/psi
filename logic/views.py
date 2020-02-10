@@ -1,3 +1,4 @@
+from random import randrange
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import render
 from django.shortcuts import redirect, reverse
@@ -5,7 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from datamodel import constants
-from datamodel.models import Game, GameStatus, Move, Counter
+from datamodel.models import Game, GameStatus, Move, Counter, User
 from .forms import SignupForm, MoveForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -106,6 +107,7 @@ def create_game_service(request):
     game = Game(cat_user=user)
     game.save()
     return render(request, 'mouse_cat/new_game.html', {"game": game})
+
 
 
 @login_required
@@ -233,7 +235,33 @@ def repeticion_partida(request):
 
 @login_required
 def jugar_vs_ia(request):
-    return render(request, "mouse_cat/jugarIA.html")
+    user = request.user
+    context_dict = {}
+
+    # get usuario IA o crearlo
+    nombre_IA = "IA"
+    password = "skynet"
+
+    try:
+        userIA = User.objects.get(username=nombre_IA)
+
+    except User.DoesNotExist:
+
+        userIA = User.objects.create_user(username=nombre_IA, password=password)
+        user.save()
+        print("Creado usuario IA")
+
+    # crear juego
+    game = Game(cat_user=user, mouse_user=userIA, es_AI=True)
+    game.save()
+
+    vs_ia = Game.objects.filter(cat_user=user, es_AI=True)
+
+    if vs_ia:
+        context_dict["vs_ia"] = vs_ia
+
+
+    return render(request, "mouse_cat/jugarIA.html", context_dict)
 
 
 @login_required

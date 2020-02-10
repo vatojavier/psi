@@ -5,5 +5,12 @@
 {% block content %}
 <div id="content">
     <h1>Jugar contra el ordenador</h1>
+
+    {% if vs_ia %}
+        {% for game in vs_ia %}
+            {{ game.id }}
+            {% endfor %}
+    {% endif %}
+    
 </div>
 {% endblock content %}

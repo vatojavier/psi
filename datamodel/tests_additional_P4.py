@@ -48,7 +48,7 @@ class GameEndTests(tests.BaseModelTest):
 
         Move.objects.create(game=game, player=self.users[0], origin=32, target=41)
         Move.objects.create(game=game, player=self.users[1], origin=36, target=29)
-        
+
         self.assertEqual(game.status, GameStatus.FINISHED)
 
     def test3(self):

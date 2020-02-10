@@ -20,6 +20,9 @@ class Game(models.Model):
                                    related_name="games_as_mouse",
                                    on_delete=models.CASCADE,
                                    blank=True, null=True)
+
+    es_AI = models.BooleanField(default=False)
+
     #  Posiciones del gato
     cat1 = models.IntegerField(default=0)
     cat2 = models.IntegerField(default=2)
@@ -126,23 +129,19 @@ def es_mov_valido(game, jugador, origen, destino, pos_val_gatos, pos_val_rata):
     destino = int(destino)
 
     if jugador != game.cat_user and jugador != game.mouse_user:
-        print("loles")
         return False
 
     if jugador == game.cat_user:
         if destino in pos_val_gatos[origen]:
             return True
         else:
-            print("loles")
             return False
     else:
         if origen != game.mouse:
-            print("loles")
             return False  # Si no se selecciona la pos de la rata
         if destino in pos_val_rata:
             return True
         else:
-            print("loles")
             return False
 
 
@@ -378,22 +377,3 @@ class Counter(models.Model):
 
     def __str__(self):
         return "Value: " + str(self.value)
-
-#  Crear proyecto: django-admin.py startproject <nombre>
-#  python3 manage.py startapp <nombreAplicacion>
-#  Añadir a ALLOWED_HOSTS u'localhost' y u'127.0.0.1'
-#  Añadir a INSTALLED APPS el nombre de la app !!
-#  Para Base de datos poner bien la BBDD!!!!! -- se puede dejar solo con postgres
-#  Para el sistema de administracion: admin.site.register(Receta) y si eso las clases de los fields
-
-#  Heroku
-#  Poner en Allowed Hosts
-#  Procfile, requirements.txt y runtime.txt
-#  STATIC_ROOT = os.path.join(BASE_DIR, 'staticHeroku') al final de settings
-
-#  Templates:
-
-#  TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-#  y 'DIRS': [TEMPLATE_DIR, ], dentro de templates
-#  Acordarse de views y urls!!
-
