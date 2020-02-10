@@ -234,9 +234,8 @@ def repeticion_partida(request):
 
 
 @login_required
-def jugar_vs_ia(request):
+def crear_game_vs_ia(request):
     user = request.user
-    context_dict = {}
 
     # get usuario IA o crearlo
     nombre_IA = "IA"
@@ -255,7 +254,15 @@ def jugar_vs_ia(request):
     game = Game(cat_user=user, mouse_user=userIA, es_AI=True)
     game.save()
 
-    vs_ia = Game.objects.filter(cat_user=user, es_AI=True)
+    return redirect(reverse('vsIA'))
+
+
+@login_required
+def jugar_vs_ia(request):
+    user = request.user
+    context_dict = {}
+
+    vs_ia = Game.objects.filter(cat_user=user, es_AI=True, status=GameStatus.ACTIVE)
 
     if vs_ia:
         context_dict["vs_ia"] = vs_ia

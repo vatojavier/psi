@@ -6,11 +6,35 @@
 <div id="content">
     <h1>Jugar contra el ordenador</h1>
 
+
     {% if vs_ia %}
+    <table id="tabla_gamesia">
+        <tr>
+            <th>GameID</th>
+            <th>Turno</th>
+            
+        </tr>
         {% for game in vs_ia %}
-            {{ game.id }}
+            <tr>
+                <th>{{ game.id }}</th>
+                <th>{% if game.cat_turn %}
+                    <span class="tu_turno">TU TURNO</span>
+                    {% else %}
+                        Esperando Oponente
+                    {% endif %}
+                </th>
+                <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
+            </tr>
             {% endfor %}
+    </table>
+    {%  else %}
+        No hay juegos vs IA
     {% endif %}
-    
+
+    <div id="crear_ia">
+        <button><a href="{% url 'crearvsIA' %}">Crear nueva partida vs IA</a></button>
+    </div>
+
+
 </div>
 {% endblock content %}
