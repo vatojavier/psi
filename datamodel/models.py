@@ -306,9 +306,17 @@ def gato_gana(pos_val_gatos, pos_val_rata):
     return True
 
 
+# Devuelve fila (pos derecha) en la que se encuentra
+def fila_de(pos):
+    return (8 - pos % 8 + pos) - 1
+
+
 def pasado_ultimo_gato(pos_rata, pos_gatos):
-    if pos_rata < min(pos_gatos) - (min(pos_gatos) % 8):
+    # Pasado o en la misma fila:
+    if fila_de(pos_rata) <= fila_de(min(pos_gatos)):
         return True
+    else:
+        return False
 
 
 class Move(models.Model):

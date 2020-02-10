@@ -48,9 +48,7 @@ class GameEndTests(tests.BaseModelTest):
 
         Move.objects.create(game=game, player=self.users[0], origin=32, target=41)
         Move.objects.create(game=game, player=self.users[1], origin=36, target=29)
-        Move.objects.create(game=game, player=self.users[0], origin=31, target=38)
-
-        Move.objects.create(game=game, player=self.users[1], origin=29, target=20)
+        
         self.assertEqual(game.status, GameStatus.FINISHED)
 
     def test3(self):
@@ -63,10 +61,9 @@ class GameEndTests(tests.BaseModelTest):
         game.cat2 = 48
         game.cat3 = 50
         game.cat4 = 61
+
         game.mouse = 34
 
-        Move.objects.create(game=game, player=self.users[0], origin=48, target=57)
-        Move.objects.create(game=game, player=self.users[1], origin=34, target=25)
         Move.objects.create(game=game, player=self.users[0], origin=29, target=38)
         self.assertEqual(game.status, GameStatus.FINISHED)
 
