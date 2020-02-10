@@ -2,7 +2,7 @@ from django.db import models
 from django import utils
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
-
+from random import randint
 
 class GameStatus:
     CREATED = 1
@@ -274,7 +274,6 @@ class ManagerMove(models.Manager):
             pos_val_gatos = get_mov_val_gatos(game, jugador)
             pos_val_rata = get_mov_val_raton(game, jugador, pos_val_gatos)
 
-            print(pos_val_rata)
             if raton_gana(game):
                 print("------Ha gando el raton------")
                 game.status = GameStatus.FINISHED

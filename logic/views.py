@@ -1,4 +1,4 @@
-from random import randrange
+from random import randint
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import render
 from django.shortcuts import redirect, reverse
@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from datamodel import constants
-from datamodel.models import Game, GameStatus, Move, Counter, User
+from datamodel.models import Game, GameStatus, Move, Counter, User, get_mov_val_raton, get_mov_val_gatos, fila_de
 from .forms import SignupForm, MoveForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -222,10 +222,48 @@ def move_service(request):
         except KeyError:
             return redirect(reverse('show_game'))
 
+        if game.es_AI:
+            mueve_ia(game)
+
         return select_game(request, gameid)
 
     else:
         return HttpResponseNotFound()
+
+
+def mueve_ia(game):
+
+    if not game.cat_turn:
+        pos_validas = get_mov_val_raton(game, game.mouse_user, get_mov_val_gatos(game, game.cat_user))
+
+        print("Raton puede mover a " + str(pos_validas))
+
+        # Si puede avanzar
+        if fila_de(min(pos_validas)) < fila_de(game.mouse):
+            mov = avanzar(game.mouse, pos_validas)
+            print("elgido " + str(mov))
+            Move.objects.create(game=game, origin=game.mouse,
+                                target=mov,
+                                player=game.mouse_user)
+
+
+def avanzar(pos_raton, pos_validas):
+    mov = []
+
+    for pos in pos_validas:
+        if fila_de(pos) < fila_de(pos_raton):
+            mov.append(pos)
+
+    print("Eligiendo entre " + str(mov))
+
+    if len(mov) == 1:
+        return mov[0]
+    elif len(mov) > 1:
+        print(mov)
+        return mov[randint(0, 1)]
+    else:
+        return -1  # Error
+
 
 
 @login_required
