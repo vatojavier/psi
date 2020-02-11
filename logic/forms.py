@@ -1,5 +1,4 @@
 from django import forms
-from datamodel.models import Game, Move, Counter
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 

@@ -198,3 +198,7 @@ a{
 .tu_turno{
     color: rgb(128, 255, 0);
 }
+
+.error{
+    color: red;
+}

@@ -47,6 +47,7 @@ function drop(ev){
             location.reload();
         },
         error: function(){
+            $("#mal_mov").show();
             console.log("noooo");               
         }
     });

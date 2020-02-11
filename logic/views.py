@@ -165,7 +165,7 @@ def select_game(request, game_id=None):
 
 
 @login_required
-def show_game(request):
+def show_game(request, error=None):
     try:
         gameid = request.session['game_id']
     except KeyError:
@@ -177,6 +177,9 @@ def show_game(request):
     move_form = MoveForm(data=request.POST)
 
     context_dict = {"game": game, "move_form": move_form}
+
+    if error:
+        context_dict["error"] = error
 
     gatos = [game.cat1, game.cat2, game.cat3, game.cat4]
     board = []
@@ -194,6 +197,7 @@ def show_game(request):
 
 @login_required
 def move_service(request):
+
     try:
         gameid = request.session["game_id"]
     except KeyError:
@@ -215,9 +219,14 @@ def move_service(request):
                                 target=destino,
                                 player=jugador)
         except ValidationError:
-            return redirect(reverse('show_game'))
+            return -1
+            #return render(request, 'mouse_cat/game.html', {"error": "mal"})
+            #print("hay error")
+            #show_game(request, "mal")
+            #return redirect(reverse('show_game'))
         except KeyError:
-            return redirect(reverse('show_game'))
+            return render(request, 'mouse_cat/game.html', {"error": "mal"})
+            #return redirect(reverse('show_game'))
 
         if game.es_AI:
             mueve_ia(game)
