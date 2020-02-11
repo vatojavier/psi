@@ -240,19 +240,27 @@ def mueve_ia(game):
 
         # Si puede avanzar
         if fila_de(min(pos_validas)) < fila_de(game.mouse):
-            mov = avanzar(game.mouse, pos_validas)
-            print("elgido " + str(mov))
-            Move.objects.create(game=game, origin=game.mouse,
-                                target=mov,
-                                player=game.mouse_user)
+            puede_avanzar = True
+        else:
+            puede_avanzar = False
+
+        mov = avanzar(game.mouse, pos_validas, puede_avanzar)
+        print("elgido " + str(mov))
+        Move.objects.create(game=game, origin=game.mouse,
+                            target=mov,
+                            player=game.mouse_user)
 
 
-def avanzar(pos_raton, pos_validas):
+def avanzar(pos_raton, pos_validas, puede_avanzar):
     mov = []
 
     for pos in pos_validas:
-        if fila_de(pos) < fila_de(pos_raton):
-            mov.append(pos)
+        if puede_avanzar:
+            if fila_de(pos) < fila_de(pos_raton):
+                mov.append(pos)
+        else:
+            if fila_de(pos) > fila_de(pos_raton):
+                mov.append(pos)
 
     print("Eligiendo entre " + str(mov))
 
