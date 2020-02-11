@@ -37,71 +37,76 @@
     
     <div class="info-juego">
 
-        <!--<form id="move_form" method="post" action="{% url 'move' %}">-->
             {% csrf_token %}
-           <div id="inf-jug-cat">
-            <p >
+            <div id="inf-jug-cat">
+
+            
+
+            <p>
                 Cats: <b>{{ game.cat_user.username }}</b>
-                {% if game.cat_turn %}
+
+                {% if game.status == 2 %}
+                    {% if game.cat_turn %}
+
+                        {% if game.cat_user.id == request.user.id %}
+                            {{ move_form }}
+                            <!--<input type="submit" value="Move" />-->
+                            <p class="tu_turno">Es tu turno</p>
+                        {% else %}
+                            <br>
+                            Waiting for the cat...
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+
+                {% if game.status == 3 %}
 
                     {% if game.cat_user.id == request.user.id %}
-                        {{ move_form }}
-                        <!--<input type="submit" value="Move" />-->
-                        <p class="tu_turno">Es tu turno</p>
-                    {% else %}
-                        <br>
-                        Waiting for the cat...
+                        {% if game.ganador == 1 %}
+                            <br>HAS GANADO!
+                        {% else %}
+                            <br> HAS PERDIDO
+                        {% endif %}
                     {% endif %}
-
                 {% endif %}
 
-                <!--
-                {% if game.cat_user.id == request.user.id %}
+            {% endif %}
 
-                    {% if game.cat_turn %}
-                        {{ move_form }}
-                       
-                        <p>Es tu turno</p>
-                    {% else %}
-                        Waiting for the mouse...
-                        
-                    {% endif %}
 
-                {% endif %}-->
+                    
             </p>
            </div>
           
             <div id="inf-jug-mouse">
                 <p>
                     Mouse: <b>{{ game.mouse_user.username }}</b>
-                    {% if not game.cat_turn %}
-                        {% if game.mouse_user.id == request.user.id %}
-                            {{ move_form }}
-                            <!--<input type="submit" value="Move" />-->
-                            <p class="tu_turno">Es tu turno</p>
-                        {% else %}
-                            <br>
-                            Waiting for the mouse...
+
+                    {% if game.status == 2 %}
+                        {% if not game.cat_turn %}
+                            {% if game.mouse_user.id == request.user.id %}
+                                {{ move_form }}
+                                <!--<input type="submit" value="Move" />-->
+                                <p class="tu_turno">Es tu turno</p>
+                            {% else %}
+                                <br>
+                                Waiting for the mouse...
+                            {% endif %}
+                        {% endif %}
+
+                    {% else %}
+                        {% if game.status == 3 %}
+                            {% if game.mouse_user.id == request.user.id %}
+                                {% if game.gandor == 2 %}
+                                    <br>HAS GANADO
+                                {% else %}
+                                    <br>HAS PERDIDO
+                                {% endif %}
+
+                            {% endif %}
                         {% endif %}
                     {% endif %}
-
-                    <!--
-                    {% if game.mouse_user.id == request.user.id %}
-                      
-                        {% if not game.cat_turn %}
-                            {{ move_form }}
-                           
-                            <p>Es tu turno</p>
-                        {% else %}
-                            Waiting for the cat...
-                        {% endif %}
-    
-                    {% endif %}-->
                 </p>
             </div>
-            
-           
-        <!--</form>-->
     </div>
 
     {{msg_error}}

@@ -174,9 +174,6 @@ def show_game(request):
 
     game = Game.objects.get(id=gameid)
 
-    if game.status == GameStatus.FINISHED:
-        return redirect(reverse('fin_partida'))
-
     move_form = MoveForm(data=request.POST)
 
     context_dict = {"game": game, "move_form": move_form}
@@ -233,7 +230,7 @@ def move_service(request):
 
 def mueve_ia(game):
 
-    if not game.cat_turn:
+    if not game.cat_turn and game.status == GameStatus.ACTIVE:
         pos_validas = get_mov_val_raton(game, game.mouse_user, get_mov_val_gatos(game, game.cat_user))
 
         print("Raton puede mover a " + str(pos_validas))

@@ -2,7 +2,7 @@ from django.db import models
 from django import utils
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
-from random import randint
+
 
 class GameStatus:
     CREATED = 1
@@ -10,7 +10,12 @@ class GameStatus:
     FINISHED = 3
 
 
-#  ejecutar lo de abajo PARA QUE MIGRE BIEN LA TABLA :(
+class Ganador:
+    NADIE = 0
+    GATO = 1
+    RATON = 2
+
+
 #  python manage.py migrate --run-syncdb
 class Game(models.Model):
     cat_user = models.ForeignKey(User,
@@ -22,6 +27,8 @@ class Game(models.Model):
                                    blank=True, null=True)
 
     es_AI = models.BooleanField(default=False)
+
+    ganador = models.IntegerField(default=Ganador.NADIE)
 
     #  Posiciones del gato
     cat1 = models.IntegerField(default=0)
@@ -276,9 +283,11 @@ class ManagerMove(models.Manager):
 
             if raton_gana(game):
                 print("------Ha gando el raton------")
+                game.ganador = Ganador.RATON
                 game.status = GameStatus.FINISHED
             elif gato_gana(pos_val_gatos, pos_val_rata):
                 print("------Ha gando el gato------")
+                game.ganador = Ganador.GATO
                 game.status = GameStatus.FINISHED
 
             game.save()
