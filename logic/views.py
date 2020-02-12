@@ -279,12 +279,6 @@ def avanzar(pos_raton, pos_validas, puede_avanzar):
         return -1  # Error
 
 
-
-@login_required
-def repeticion_partida(request):
-    return render(request, "mouse_cat/repeticion.html")
-
-
 @login_required
 def crear_game_vs_ia(request):
     user = request.user
@@ -319,10 +313,39 @@ def jugar_vs_ia(request):
     if vs_ia:
         context_dict["vs_ia"] = vs_ia
 
-
     return render(request, "mouse_cat/jugarIA.html", context_dict)
 
 
 @login_required
 def partida_terminada(request):
     return render(request, "mouse_cat/partida_terminada.html")
+
+
+@login_required
+def repeticion_partida(request, game_id=None):
+    user = request.user
+    context_dict = {}
+
+    if game_id is None:
+        #  Mostrar lista de partidas
+        as_cat = Game.objects.filter(cat_user=user, status=GameStatus.FINISHED)
+        if as_cat:
+            context_dict['as_cat'] = as_cat
+
+        as_mouse = Game.objects.filter(mouse_user=user, status=GameStatus.FINISHED)
+        if as_mouse:
+            context_dict['as_mouse'] = as_mouse
+        return render(request, 'mouse_cat/repeticion.html', context_dict)
+    else:
+        #  Meterse en la partida
+        game = Game.objects.filter(id=game_id).first()
+
+        #  Si no hay juego
+        if game is None or game.status == GameStatus.CREATED:
+            return HttpResponseNotFound(errorHTTP(request, "Game does not exist"))
+        else:  # Si se pertenece al juego
+            if game.mouse_user == user or game.cat_user == user:
+                request.session['game_id'] = game.id
+                return redirect(reverse('show_game'))  # DEBUGGGGG AQUIIIIIIIII
+            else:
+                return HttpResponseNotFound(errorHTTP(request, "Game does not exist"))

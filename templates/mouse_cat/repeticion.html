@@ -3,7 +3,73 @@
 {% load staticfiles %}
 
 {% block content %}
-<div id="content">
-    <h1>Repetición de la partida</h1>
+
+
+<h1>Partidas finalizadas</h1>
+<div class="content-select-game">
+
+    <div id="games_as_cat">
+        <h2>Como gato</h2>
+            {% if as_cat %}
+            <table id="tabla_games">
+                <tr>
+                    <th>GameID</th>
+                    <th>Ganador</th>
+                    <th>Oponente</th>
+                    
+                </tr>
+                {% for game in as_cat %}
+                    <tr>
+                        <th>{{ game.id }}</th>
+                        <th>
+                            {% if game.ganador == 1 %}
+                            <span class="ganador">Ganaste</span>
+                            {% else %}
+                            <span class="perdedor">Perdiste</span>
+                            {% endif %}
+                        </th>
+                        <th>{{ game.mouse_user }}</th>
+                        <th><a href="{% url 'select_game' game.id %}">Ver repeticion</a></th>
+                    </tr>
+                    {% endfor %}
+            </table>
+
+            {%  else %}
+                No games as cat
+            {% endif %}
+        
+    </div>
+
+   <div id="games_as_mouse">       
+    <h2>Como Ratón</h2>
+    
+    {% if as_mouse %}
+    <table id="tabla_games">
+        <tr>
+            <th>GameID</th>
+            <th>Ganador</th>
+            <th>Oponente</th>
+            
+        </tr>
+        {% for game in as_mouse %}
+            <tr>
+                <th>{{ game.id }}</th>
+                <th>
+                    {% if game.ganador == 2%}
+                    <span class="ganador">Ganaste</span>
+                    {% else %}
+                    <span class="perdedor">Perdiste</span>
+                    {% endif %}
+                </th>
+                <th>{{ game.cat_user }}</th>
+                <th><a href="{% url 'select_game' game.id %}">Ver repeticion</a></th>
+            </tr>
+            {% endfor %}
+    </table>
+    {%  else %}
+        <br>No games as mouse
+    {% endif %}
+   </div>
 </div>
+<p><button><a href="{% url 'landing' %}">Return to homepage</a></button></p>
 {% endblock content %}

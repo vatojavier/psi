@@ -42,6 +42,10 @@ urlpatterns = [
     path("crear_ia/", views.crear_game_vs_ia, name="crearvsIA"),
 
     path("move/", views.move_service, name="move"),
+
     path("repeticion/", views.repeticion_partida, name="repeticion"),
+    path("repeticion/<int:game_id>/", views.repeticion_partida, name="repeticion"),
+
+
     path("final/", views.partida_terminada, name="fin_partida")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

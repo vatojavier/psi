@@ -195,10 +195,18 @@ a{
     text-decoration:none;
 }
 
-.tu_turno{
+.tu_turno, .ganador{
     color: rgb(128, 255, 0);
 }
 
 .error{
     color: red;
 }
+
+.perdedor{
+    color: rgb(240, 59, 4);
+}
+/*
+.ganador{
+    color: greenyellow;
+}*/
