@@ -338,6 +338,9 @@ class Move(models.Model):
     def save(self, *args, **kwargs):
         super(Move, self).save()
 
+    def __str__(self):
+        return str(self.id)
+
 
 class ManagerCounter(models.Manager):
 

@@ -336,8 +336,9 @@ def repeticion_partida(request, game_id=None):
         if as_mouse:
             context_dict['as_mouse'] = as_mouse
         return render(request, 'mouse_cat/repeticion.html', context_dict)
+
     else:
-        #  Meterse en la partida
+        # Meterse en la partida
         game = Game.objects.filter(id=game_id).first()
 
         #  Si no hay juego
@@ -346,6 +347,38 @@ def repeticion_partida(request, game_id=None):
         else:  # Si se pertenece al juego
             if game.mouse_user == user or game.cat_user == user:
                 request.session['game_id'] = game.id
-                return redirect(reverse('show_game'))  # DEBUGGGGG AQUIIIIIIIII
+                return redirect(reverse('rep_game'))  # DEBUGGGGG AQUIIIIIIIII
             else:
                 return HttpResponseNotFound(errorHTTP(request, "Game does not exist"))
+
+
+@login_required
+def rep_game(request):
+
+    try:
+        gameid = request.session['game_id']
+    except KeyError:
+        return errorHTTP(request,
+                         exception="No has seleccionado juego")
+
+    game = Game.objects.get(id=gameid)
+
+    # Movimientos de esa partida
+    movs = Move.objects.filter(game__id=gameid)
+    print(movs)
+
+    context_dict = {"game": game}
+
+    gatos = [game.cat1, game.cat2, game.cat3, game.cat4]
+
+    board = []
+    for i in range(64):
+        if i in gatos:
+            board.append(1)
+        elif game.mouse == i:
+            board.append(-1)
+        else:
+            board.append(0)
+
+    context_dict["board"] = board
+    return render(request, 'mouse_cat/game.html', context_dict)

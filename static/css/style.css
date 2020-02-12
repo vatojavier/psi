@@ -206,7 +206,18 @@ a{
 .perdedor{
     color: rgb(240, 59, 4);
 }
-/*
-.ganador{
-    color: greenyellow;
-}*/
+.tabla-oponente{
+    width: 150px;
+    text-align: center;
+    max-height: 25px;
+}
+.icono-ia{
+    height: 30px;
+    width: 30px;
+}
+
+.icono-ia-game{
+    height: 75px;
+    width: 75px;
+    padding: 5px;
+}

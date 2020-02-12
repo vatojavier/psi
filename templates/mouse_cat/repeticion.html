@@ -28,8 +28,15 @@
                             <span class="perdedor">Perdiste</span>
                             {% endif %}
                         </th>
-                        <th>{{ game.mouse_user }}</th>
-                        <th><a href="{% url 'select_game' game.id %}">Ver repeticion</a></th>
+                        <th class="tabla-oponente">
+                            {% if game.es_AI %}
+                                <img src="{% static 'images/IA-icon.png' %}" class="icono-ia" alt="IA">
+                            {% else %}
+                                {{ game.mouse_user }}
+                            {% endif %}
+
+                        </th>
+                        <th><a href="{% url 'repeticion' game.id %}">Ver repeticion</a></th>
                     </tr>
                     {% endfor %}
             </table>
@@ -61,8 +68,14 @@
                     <span class="perdedor">Perdiste</span>
                     {% endif %}
                 </th>
-                <th>{{ game.cat_user }}</th>
-                <th><a href="{% url 'select_game' game.id %}">Ver repeticion</a></th>
+                <th class="tabla-oponente">
+                    {% if game.es_AI %}
+                        <img src="{% static 'images/IA-icon.png' %}" class="icono-ia" alt="IA">
+                    {% else %}
+                        {{ game.cat_user }}
+                    {% endif %}
+                </th>
+                <th><a href="{% url 'repeticion' game.id %}">Ver repeticion</a></th>
             </tr>
             {% endfor %}
     </table>

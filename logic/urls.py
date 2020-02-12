@@ -45,7 +45,7 @@ urlpatterns = [
 
     path("repeticion/", views.repeticion_partida, name="repeticion"),
     path("repeticion/<int:game_id>/", views.repeticion_partida, name="repeticion"),
-
+    path("rep_game/", views.rep_game, name="rep_game"),
 
     path("final/", views.partida_terminada, name="fin_partida")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

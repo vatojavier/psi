@@ -1,5 +1,7 @@
 {% extends "mouse_cat/base.html" %}
 
+{% load staticfiles %}
+
 {% block content %}
 <h1>Select game</h1>
 <div class="content-select-game">
@@ -11,7 +13,7 @@
                 <tr>
                     <th>GameID</th>
                     <th>Turno</th>
-                    <th>Oponente</th>
+                    <th class="tabla-oponente">Oponente</th>
                     
                 </tr>
                 {% for game in as_cat %}
@@ -23,30 +25,18 @@
                                 Esperando Oponente
                             {% endif %}
                         </th>
-                        <th>{{ game.mouse_user }}</th>
+                        <th class="tabla-oponente">
+                            {% if game.es_AI %}
+                                <img src="{% static 'images/IA-icon.png' %}" class="icono-ia" alt="IA">
+                            {% else %}
+                                {{ game.mouse_user }}
+                            {% endif %}
+
+                        </th>
                         <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
                     </tr>
                     {% endfor %}
             </table>
-
-            <!--Games as cat:
-               <ul>
-                {% for game in as_cat %}
-                    
-                    <li><p>Game {{ game.id }}
-                        {% if game.cat_turn %}
-                           
-                           <span> TU TURNO </span>
-                        {% else %}
-                           <span> Esperando a oponente </span>
-
-                        {% endif %}
-                        <a href="{% url 'select_game' game.id %}">Entrar -></a>
-                    </p>
-                   
-                    </li>
-                {% endfor %}
-                </ul>-->
 
             {%  else %}
                 No games as cat
@@ -74,7 +64,14 @@
                     Esperando Oponente
                 {% endif %}
             </th>
-                <th>{{ game.cat_user }}</th>
+            <th class="tabla-oponente">
+                {% if game.es_AI %}
+                    <img src="{% static 'images/IA-icon.png' %}" class="icono-ia" alt="IA" title="IA"/>
+                {% else %}
+                    {{ game.cat_user }}
+                {% endif %}
+
+            </th>
                 <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
             </tr>
             {% endfor %}
