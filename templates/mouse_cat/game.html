@@ -6,9 +6,6 @@
 
 <script src= "{% static 'js/tablero.js' %}"></script>
 
-{{ error }}
-
-<p hidden class="error" id="mal_mov">Movimiento inválido</p>
 <div id="num-juego">
     <p>Game: <b>{{ game.id }}</b></p>
 </div>
@@ -55,6 +52,7 @@
                             {{ move_form }}
                             <!--<input type="submit" value="Move" />-->
                             <p class="tu_turno">Es tu turno</p>
+                            <p hidden class="error" id="mal_mov">Movimiento inválido</p>
                         {% else %}
                             <br>
                             Waiting for the cat...
@@ -88,6 +86,7 @@
                                 {{ move_form }}
                                 <!--<input type="submit" value="Move" />-->
                                 <p class="tu_turno">Es tu turno</p>
+                                <p hidden class="error" id="mal_mov">Movimiento inválido</p>
                             {% else %}
                                 <br>
                                 Waiting for the mouse...
