@@ -396,6 +396,7 @@ def get_move(request):
 
     # Movimientos de esa partida
     movs = Move.objects.filter(game__id=gameid)
+    n_movs = len(movs)
 
     request.session['shift'] = 0
 
@@ -414,6 +415,11 @@ def get_move(request):
                 respuesta['previous'] = False
             else:
                 respuesta['previous'] = True
+
+            if request.session['shift'] < n_movs:
+                respuesta['next'] = True
+            else:
+                respuesta['next'] = False
 
             respuesta['origin'] = movs[shift-1].origin
             respuesta['target'] = movs[shift - 1].target
