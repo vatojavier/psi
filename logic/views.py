@@ -403,10 +403,21 @@ def get_move(request):
         return HttpResponseNotFound()
 
     elif request.method == 'POST':
+        respuesta = {'origin': 0, 'target': 0, 'previous': False,
+                     'next': False}
         shift = int(request.POST.get('shift'))
-        print("recibido" + str(shift))
+
         if shift == 1:
             request.session['shift'] += 1
-            return JsonResponse({'origin': movs[shift - 1].origin, 'target': movs[shift - 1].target})
+
+            if request.session['shift'] == 0:
+                respuesta['previous'] = False
+            else:
+                respuesta['previous'] = True
+
+            respuesta['origin'] = movs[shift-1].origin
+            respuesta['target'] = movs[shift - 1].target
+
+            return JsonResponse(respuesta)
         else:
             return JsonResponse({'origin': 18, 'target':1})
