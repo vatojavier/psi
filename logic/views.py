@@ -398,7 +398,19 @@ def get_move(request):
     movs = Move.objects.filter(game__id=gameid)
     n_movs = len(movs)
 
-    request.session['shift'] = 0
+    try:
+        juego_rep = request.session['juego_rep']  # Juego reproduciendose
+        if juego_rep != gameid:
+            print("Nuevo rep cambiando")
+            request.session['juego_rep'] = gameid
+            request.session['shift'] = 0
+        else:
+            print("Mismo jogo")
+
+    except KeyError:
+        print("Nuevo rep")
+        request.session['juego_rep'] = gameid
+        request.session['shift'] = 0
 
     if request.method == 'GET':
         return HttpResponseNotFound()
@@ -406,10 +418,14 @@ def get_move(request):
     elif request.method == 'POST':
         respuesta = {'origin': 0, 'target': 0, 'previous': False,
                      'next': False}
+
         shift = int(request.POST.get('shift'))
 
         if shift == 1:
             request.session['shift'] += 1
+
+            print("Mov " + str(request.session['shift']))
+            print(movs[request.session['shift'] - 1])
 
             if request.session['shift'] == 0:
                 respuesta['previous'] = False
@@ -421,9 +437,9 @@ def get_move(request):
             else:
                 respuesta['next'] = False
 
-            respuesta['origin'] = movs[shift-1].origin
-            respuesta['target'] = movs[shift - 1].target
+            respuesta['origin'] = movs[request.session['shift'] - 1].origin
+            respuesta['target'] = movs[request.session['shift'] - 1].target
 
             return JsonResponse(respuesta)
         else:
-            return JsonResponse({'origin': 18, 'target':1})
+            return JsonResponse({'origin': 18, 'target': 88})
