@@ -60,10 +60,7 @@ class GetMoveServiceTests(tests_services.PlayGameBaseServiceTests):
             self.assertEqual(data["target"], move["target"])
             self.assertTrue(data["previous"])
             self.assertEqual(data["next"], n_move != len(self.moves)-1)
-            print("BIEN")
             n_move += 1
-
-        print("Bien")
 
         self.moves.reverse()
         n_move = 0

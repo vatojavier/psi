@@ -401,16 +401,16 @@ def get_move(request):
     try:
         juego_rep = request.session['juego_rep']  # Juego reproduciendose
         if juego_rep != gameid:
-            print("Nuevo rep cambiando")
+            # print("Nuevo rep cambiando")
             request.session['juego_rep'] = gameid
-            request.session['shift'] = 0
+            request.session['shift'] = 0  # Por donde continua la repe
         else:
             print("Mismo jogo")
 
     except KeyError:
-        print("Nuevo rep")
+        #  print("Nuevo rep")
         request.session['juego_rep'] = gameid
-        request.session['shift'] = 0
+        request.session['shift'] = 0  # Por donde continua la repe
 
     if request.method == 'GET':
         return HttpResponseNotFound()
@@ -424,22 +424,35 @@ def get_move(request):
         if shift == 1:
             request.session['shift'] += 1
 
-            print("Mov " + str(request.session['shift']))
-            print(movs[request.session['shift'] - 1])
+            if request.session['shift'] == 0:
+                respuesta['previous'] = False
+            else:
+                respuesta['previous'] = True
+
+            if request.session['shift'] == n_movs:
+                respuesta['next'] = False
+            else:
+                respuesta['next'] = True
+
+            respuesta['origin'] = movs[request.session['shift'] - 1].origin
+            respuesta['target'] = movs[request.session['shift'] - 1].target
+
+            return JsonResponse(respuesta)
+        elif shift == -1:
+
+            request.session['shift'] -= 1
 
             if request.session['shift'] == 0:
                 respuesta['previous'] = False
             else:
                 respuesta['previous'] = True
 
-            if request.session['shift'] < n_movs:
-                respuesta['next'] = True
-            else:
+            if request.session['shift'] >= n_movs:
                 respuesta['next'] = False
+            else:
+                respuesta['next'] = True
 
-            respuesta['origin'] = movs[request.session['shift'] - 1].origin
-            respuesta['target'] = movs[request.session['shift'] - 1].target
+            respuesta['origin'] = movs[request.session['shift']].target
+            respuesta['target'] = movs[request.session['shift']].origin
 
             return JsonResponse(respuesta)
-        else:
-            return JsonResponse({'origin': 18, 'target': 88})
