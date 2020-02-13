@@ -1,5 +1,5 @@
 from random import randint
-from django.http import HttpResponseForbidden, Http404
+from django.http import HttpResponseForbidden, Http404, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.http import HttpResponse, HttpResponseNotFound
@@ -369,16 +369,44 @@ def rep_game(request):
 
     context_dict = {"game": game}
 
-    gatos = [game.cat1, game.cat2, game.cat3, game.cat4]
+    gatos = [0, 2, 4, 6]
+    mouse = 59
 
     board = []
     for i in range(64):
         if i in gatos:
             board.append(1)
-        elif game.mouse == i:
+        elif mouse == i:
             board.append(-1)
         else:
             board.append(0)
 
     context_dict["board"] = board
-    return render(request, 'mouse_cat/game.html', context_dict)
+    return render(request, 'mouse_cat/rep_game.html', context_dict)
+
+
+@login_required
+def get_move(request):
+
+    try:
+        gameid = request.session['game_id']
+    except KeyError:
+        return errorHTTP(request,
+                         exception="No has seleccionado juego")
+
+    # Movimientos de esa partida
+    movs = Move.objects.filter(game__id=gameid)
+
+    request.session['shift'] = 0
+
+    if request.method == 'GET':
+        return HttpResponseNotFound()
+
+    elif request.method == 'POST':
+        shift = int(request.POST.get('shift'))
+        print("recibido" + str(shift))
+        if shift == 1:
+            request.session['shift'] += 1
+            return JsonResponse({'origin': movs[shift - 1].origin, 'target': movs[shift - 1].target})
+        else:
+            return JsonResponse({'origin': 18, 'target':1})

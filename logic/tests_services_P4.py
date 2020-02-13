@@ -55,11 +55,14 @@ class GetMoveServiceTests(tests_services.PlayGameBaseServiceTests):
                 reverse(GET_MOVE_SERVICE), {"shift": 1}, follow=True, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
             self.assertEqual(response.status_code, 200)
             data = json.loads(self.decode(response.content))
+
             self.assertEqual(data["origin"], move["origin"])
             self.assertEqual(data["target"], move["target"])
             self.assertTrue(data["previous"])
             self.assertEqual(data["next"], n_move != len(self.moves)-1)
             n_move += 1
+
+        print("Bien")
 
         self.moves.reverse()
         n_move = 0

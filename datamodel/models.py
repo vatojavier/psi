@@ -339,7 +339,9 @@ class Move(models.Model):
         super(Move, self).save()
 
     def __str__(self):
-        return str(self.id)
+        return "\nID: " + str(self.id) + "\n" +\
+               "Origen: " + str(self.origin) + "\n" +\
+               "Target: " + str(self.target) + "\n"
 
 
 class ManagerCounter(models.Manager):
