@@ -31,13 +31,15 @@ function getMovimiento(shiftr){
             origen = response.origin
             destino = response.target
 
-            console.log(origen);
+            if(response.next == false){
+                clearInterval(window.timer)
+            }
 
             cell = $("#"+response.origin)
             fichaImg = cell.find("img")
 
             if(!fichaImg.is("img")){
-                alert("Algo fue mal")
+                alert("Algo fue mal, recarga la pagina o reproduce otro juego")
             }
             $(fichaImg).appendTo("#"+destino)
 
