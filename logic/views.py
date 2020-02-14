@@ -362,6 +362,7 @@ def rep_game(request):
                          exception="No has seleccionado juego")
 
     game = Game.objects.get(id=gameid)
+    request.session['juego_rep'] = -1
 
     # Movimientos de esa partida
     movs = Move.objects.filter(game__id=gameid)
