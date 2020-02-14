@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<script src= "{% static 'js/tablero.js' %}"></script>
+<script src= "{% static 'js/tablero_rep.js' %}"></script>
 
 <div id="num-juego">
     <p>Game: <b>{{ game.id }}</b></p>
@@ -19,12 +19,12 @@
             <table id="chess_board">
             {% for item in board %}
                 {% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
-                <td ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="{{forloop.counter0}}" style='width:50px;height:50px;border:1px solid #000000;text-align:center;'>
+                <td id="{{forloop.counter0}}" style='width:50px;height:50px;border:1px solid #000000;text-align:center;'>
                     {% if item ==  0 %}
                     {% elif item == 1 %}  
-                        <img src="{% static 'images/gato_tablero.png' %}" id="{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
+                        <img src="{% static 'images/gato_tablero.png' %}" id="gato{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
                     {% else %}  
-                        <img src="{% static 'images/raton_tablero.png' %}" id="{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
+                        <img src="{% static 'images/raton_tablero.png' %}" id="raton{{forloop.counter0}}" class='fichas_tablero' alt='gato' draggable="true">
                     {% endif %}
                 </td>
                 {% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
@@ -32,9 +32,9 @@
             </table>
         {% endif %}
         </div>
-
-        <p><button><a href="{% url 'rep_game' %}">Anterior</a></button></p>
-        <p><button><a href="{% url 'rep_game' %}">Siguiente</a></button></p>
+        
+        <p><button onclick="getAnterior()">Anterior</button></p>
+        <p><button onclick="getSiguiente()">Siguiente</button></p>
     </div>
     
     <div class="info-juego">

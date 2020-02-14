@@ -12,7 +12,7 @@ function getCookie(name) {
             }
         }
         return cookieValue;
-    }
+}
     
 function allowDrop(ev){
     ev.preventDefault();
