@@ -50,6 +50,28 @@ function getMovimiento(shiftr){
 
 }
 
+function repAuto(){
+    console.log("ya")
+    getMovimiento(1);
+}
+
+function play(id){
+
+    if(id == "stop"){
+        console.log("Parando")
+        clearInterval(window.timer)
+        $("#stop").text("play")
+        $("#stop").attr("id", "start")
+    }else{
+        console.log("Empezando")
+        repAuto();
+        window.timer = setInterval(repAuto,2000)
+        $("#start").text("stop")
+        $("#start").attr("id", "stop")
+    }
+    
+}
+
 $(document).ready(function(){
     var fila_par = false;
 

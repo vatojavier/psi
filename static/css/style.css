@@ -223,3 +223,7 @@ a{
     width: 75px;
     padding: 5px;
 }
+
+.botones_rep{
+    display: flex;
+}

@@ -32,9 +32,13 @@
             </table>
         {% endif %}
         </div>
+
+        <div class="botones_rep">
+            <p><button onclick="getMovimiento(-1)">Anterior</button></p>
+            <p><button id="start" onclick="play(this.id)">Play</button></p>
+            <p><button onclick="getMovimiento(1)">Siguiente</button></p>
+        </div>
         
-        <p><button onclick="getMovimiento(-1)">Anterior</button></p>
-        <p><button onclick="getMovimiento(1)">Siguiente</button></p>
     </div>
     
     <div class="info-juego">
