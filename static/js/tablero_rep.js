@@ -14,7 +14,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function getSiguiente(){
+function getSiguiente(shiftr){
     var csrf_token = getCookie('csrftoken');
 
 
@@ -22,7 +22,7 @@ function getSiguiente(){
         url: '/get_move/',
         type: 'post',
         data: {
-            shift: 1,
+            shift: shiftr,
         },
         headers: {
             "X-CSRFToken": csrf_token,                
