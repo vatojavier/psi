@@ -14,7 +14,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function getSiguiente(shiftr){
+function getMovimiento(shiftr){
     var csrf_token = getCookie('csrftoken');
 
 
@@ -47,10 +47,6 @@ function getSiguiente(shiftr){
         }
     });
 
-
-}
-
-function getAnterior(){
 
 }
 
