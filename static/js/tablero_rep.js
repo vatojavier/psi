@@ -31,9 +31,22 @@ function getMovimiento(shiftr){
             origen = response.origin
             destino = response.target
 
+            /*Disable boton de next */
             if(response.next == false){
                 clearInterval(window.timer)
+                $("#boton-next").attr("disabled", true)
+            }else{
+                $("#boton-next").attr("disabled", false)
             }
+            
+            /*Disable boton de previous */
+            if(response.previous == false){
+                clearInterval(window.timer)
+                $("#boton-previous").attr("disabled", true)
+            }else{
+                $("#boton-previous").attr("disabled", false)
+            }
+
 
             cell = $("#"+response.origin)
             fichaImg = cell.find("img")
@@ -48,8 +61,6 @@ function getMovimiento(shiftr){
             console.log("noooo");               
         }
     });
-
-
 }
 
 function repAuto(){
