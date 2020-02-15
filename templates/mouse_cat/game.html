@@ -5,6 +5,7 @@
 {% block content %}
 
 <script src= "{% static 'js/tablero.js' %}"></script>
+<meta name="juego_vs_IA" content="{{game.es_AI}}">
 
 <div id="num-juego">
     <p>Game: <b>{{ game.id }}</b></p>
@@ -32,7 +33,6 @@
             </table>
         {% endif %}
         </div>
-    
     </div>
     
     <div class="info-juego">

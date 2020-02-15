@@ -109,7 +109,6 @@ def create_game_service(request):
     return render(request, 'mouse_cat/new_game.html', {"game": game})
 
 
-
 @login_required
 def join_game(request, game_id=None):
 
@@ -213,25 +212,25 @@ def move_service(request):
         destino = request.POST.get('target')
 
         print(origen, destino)
+        respuesta = {}
 
         try:
             Move.objects.create(game=game, origin=origen,
                                 target=destino,
                                 player=jugador)
         except ValidationError:
-            return -1
-            #return render(request, 'mouse_cat/game.html', {"error": "mal"})
-            #print("hay error")
-            #show_game(request, "mal")
-            #return redirect(reverse('show_game'))
+            respuesta['mov_valido'] = False
+            return JsonResponse(respuesta)
+
         except KeyError:
-            return render(request, 'mouse_cat/game.html', {"error": "mal"})
-            #return redirect(reverse('show_game'))
+            respuesta['mov_valido'] = False
+            return JsonResponse(respuesta)
 
         if game.es_AI:
             mueve_ia(game)
 
-        return select_game(request, gameid)
+        respuesta['mov_valido'] = True
+        return JsonResponse(respuesta)
 
     else:
         return HttpResponseNotFound()
@@ -289,12 +288,9 @@ def crear_game_vs_ia(request):
 
     try:
         userIA = User.objects.get(username=nombre_IA)
-
     except User.DoesNotExist:
-
         userIA = User.objects.create_user(username=nombre_IA, password=password)
         user.save()
-        print("Creado usuario IA")
 
     # crear juego
     game = Game(cat_user=user, mouse_user=userIA, es_AI=True)

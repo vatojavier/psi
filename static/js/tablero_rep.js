@@ -47,7 +47,6 @@ function getMovimiento(shiftr){
                 $("#boton-previous").attr("disabled", false)
             }
 
-
             cell = $("#"+response.origin)
             fichaImg = cell.find("img")
 
