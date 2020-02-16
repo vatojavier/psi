@@ -31,13 +31,11 @@
                             {% else %}
                                 {{ game.mouse_user }}
                             {% endif %}
-
                         </th>
                         <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
                     </tr>
                     {% endfor %}
             </table>
-
             {%  else %}
                 No games as cat
             {% endif %}
@@ -70,14 +68,13 @@
                 {% else %}
                     {{ game.cat_user }}
                 {% endif %}
-
             </th>
                 <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
             </tr>
             {% endfor %}
     </table>
     {%  else %}
-        <br>No games as mouse
+        No games as mouse
     {% endif %}
    </div>
 </div>

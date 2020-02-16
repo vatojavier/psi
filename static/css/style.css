@@ -162,15 +162,36 @@ body{
 
 /*----- Join_Game -----*/
 .tarjeta_join{
-    display: flex;
     margin-top: 10px;
     align-items: center;
-    
+    border: 1px solid black;
+    width: 25%;
 }
 .tarjeta_join > div{
     margin-left: 10px;
 }
 
+.tabla_join{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+.tabla_join td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 2px;
+    border-color: black;
+}
+
+.div_btn_join{
+    padding: 5px;
+    display: flex;
+}
+
+.btn_jugar{
+    color: green;
+}
 /*----- /Join_Game -----*/
 
 /*----- IA -----*/
@@ -187,10 +208,6 @@ body{
     border-color: black;
   }
 /*----- /IA -----*/
-
-.btn_entrar{
-    color: green;
-}
 
 a{
     color: black;

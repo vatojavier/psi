@@ -12,25 +12,28 @@
     {% else %}
         {% for game in partidas_disp %}
             <div class="tarjeta_join" id="tarjeta_join_{{game.id}}">
-                <div>
-                    <button onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> 
-                        {{ game.id }} <br>{{ game.cat_user }}
+                <table class="tabla_join">
+                    <tr>
+                        <th>GameId</th>
+                        <th>Oponente</th>
+                    </tr>
+                    <tr>
+                        <th>{{ game.id }}</th>
+                        <th>{{ game.cat_user }}</th>
+                    </tr>
+                </table>
+
+                <div class="div_btn_join">
+
+                    <button class="boton_entrar" id="boton_entrar_{{ game.id}}" onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> 
+                        Entrar
                     </button>
-                </div>
-                
-                <div>
                     <p hidden class="join_succes" id="join_succes_{{game.id}}">Te has unido</p>
+                    <div class="boton_jugar">
+                        <a hidden class="btn_jugar" id="btn_jugar_{{ game.id}}" href="{% url 'select_game' game.id %}">Jugar</a>
+                    </div>
                 </div>
-
-                
-                <div class="boton_entrar">
-                    <a hidden class="btn_entrar" id="btn_entrar_{{ game.id}}" href="{% url 'select_game' game.id %}">Jugar</a>
-                </div>
-                
-                
-            </div>
-
-            
+            </div>            
         {% endfor %}
 
         <!--<p><b>{{ game.mouse_user.username }}</b> succesfully joined to game <b>{{ game.id }}</b>. The game can start!!!</p>-->
