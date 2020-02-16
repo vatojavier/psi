@@ -4,6 +4,6 @@
 <div id="content">
     <h1>Error</h1>
     <p class="error">{{ msg_error }}</p>
-    <p><button><a href="{% url 'landing' %}">Return to homepage</a></button></p>
+    <a class="return_btn" href="{% url 'landing' %}">Return to homepage</a>
 </div>
 {% endblock content %}

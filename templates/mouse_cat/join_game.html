@@ -25,11 +25,14 @@
 
                 <div class="div_btn_join">
 
-                    <button class="boton_entrar" id="boton_entrar_{{ game.id}}" onclick="joinFunction({{ game.id }})" href="{% url 'join_game' game.id %}"> 
+                    <a class="boton_entrar" id="boton_entrar_{{ game.id}}" onclick="joinFunction({{ game.id }})"> 
                         Entrar
-                    </button>
-                    <p hidden class="join_succes" id="join_succes_{{game.id}}">Te has unido</p>
-                    <div class="boton_jugar">
+                    </a>
+                    <div>
+                        <p hidden class="join_succes" id="join_succes_{{game.id}}">Te has unido </p>
+                    </div>
+
+                    <div class="div_btn_jugar">
                         <a hidden class="btn_jugar" id="btn_jugar_{{ game.id}}" href="{% url 'select_game' game.id %}">Jugar</a>
                     </div>
                 </div>
@@ -38,6 +41,6 @@
 
         <!--<p><b>{{ game.mouse_user.username }}</b> succesfully joined to game <b>{{ game.id }}</b>. The game can start!!!</p>-->
     {% endif %}
-    <p><button><a href="{% url 'landing' %}">Return to homepage</a></button></p>
+    <a class="return_btn" href="{% url 'landing' %}">Return to homepage</a>
 </div>
 {% endblock content %}

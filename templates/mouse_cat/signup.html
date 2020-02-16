@@ -7,12 +7,12 @@
         <form id="user_form" method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             {{ user_form.as_p }}<br/>
-            <input type="submit" name="submit" value="Register" />
+            <input class="login_input" type="submit" name="submit" value="Register" />
         </form>
     {% else %}
         <p>User successfully created</p>
     {% endif %}
-    <p><button><a href="{% url 'landing' %}">Return to homepage</a></button></p>
+    <a class="return_btn" href="{% url 'landing' %}">Return to homepage</a>
 
 </div>
 {% endblock content %}

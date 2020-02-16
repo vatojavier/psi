@@ -23,7 +23,7 @@
                         Esperando Oponente
                     {% endif %}
                 </th>
-                <th><a href="{% url 'select_game' game.id %}">Entrar</a></th>
+                <th class="th_entrar" ><a class="boton_entrar_ia" href="{% url 'select_game' game.id %}">Entrar</a></th>
             </tr>
             {% endfor %}
     </table>
@@ -32,9 +32,8 @@
     {% endif %}
 
     <div id="crear_ia">
-        <button><a href="{% url 'crearvsIA' %}">Crear nueva partida vs IA</a></button>
+        <a class="boton_entrar" href="{% url 'crearvsIA' %}">Crear nueva partida vs IA</a>
     </div>
-
-
+    <a class="return_btn" href="{% url 'landing' %}">Return to homepage</a>
 </div>
 {% endblock content %}
