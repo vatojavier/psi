@@ -1,0 +1,15 @@
+Name                                        Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------
+datamodel/__init__.py                           0      0   100%
+datamodel/admin.py                              6      0   100%
+datamodel/apps.py                               3      3     0%   1-5
+datamodel/constants.py                          6      0   100%
+datamodel/migrations/0001_initial.py            8      0   100%
+datamodel/migrations/0002_game_es_ai.py         4      0   100%
+datamodel/migrations/0003_game_ganador.py       4      0   100%
+datamodel/migrations/__init__.py                0      0   100%
+datamodel/models.py                           233     27    88%   139, 145, 148, 152, 161, 164, 166, 171, 186, 189, 195, 198, 201, 248, 274-275, 278-279, 286-287, 290-291, 301, 313, 324, 342, 392
+datamodel/views.py                              8      2    75%   11-12
+-------------------------------------------------------------------------
+TOTAL                                         272     32    88%
+
