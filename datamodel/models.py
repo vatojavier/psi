@@ -228,7 +228,7 @@ def get_mov_val_gatos(game, jugador):
         pos_val_gatos[pos_gato] = []
 
     for gato in pos_gatos:
-        for i in range(game.MAX_CELL):
+        for i in range(game.MAX_CELL + 1):
             if es_mov_valido_g(game, jugador, gato, i):
                 pos_val_gatos[gato].append(i)
 
