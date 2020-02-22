@@ -250,8 +250,8 @@ class ManagerMove(models.Manager):
         pos_val_gatos = get_mov_val_gatos(game, jugador)
         pos_val_rata = get_mov_val_raton(game, jugador, pos_val_gatos)
 
-        if game.status == GameStatus.CREATED:
-            print("si macho")
+        #if game.status == GameStatus.CREATED:
+         #   print("si macho")
 
         if game.status == GameStatus.CREATED or game.status == GameStatus.FINISHED \
                 or not es_mov_valido(game, jugador, origin, target, pos_val_gatos, pos_val_rata):
@@ -281,12 +281,12 @@ class ManagerMove(models.Manager):
             pos_val_gatos = get_mov_val_gatos(game, jugador)
             pos_val_rata = get_mov_val_raton(game, jugador, pos_val_gatos)
 
+            # ------Ha gando el raton------
             if raton_gana(game):
-                print("------Ha gando el raton------")
                 game.ganador = Ganador.RATON
                 game.status = GameStatus.FINISHED
+            # ------Ha gando el gato------
             elif gato_gana(pos_val_gatos, pos_val_rata):
-                print("------Ha gando el gato------")
                 game.ganador = Ganador.GATO
                 game.status = GameStatus.FINISHED
 

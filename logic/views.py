@@ -241,7 +241,6 @@ def mueve_ia(game):
     if not game.cat_turn and game.status == GameStatus.ACTIVE:
         pos_validas = get_mov_val_raton(game, game.mouse_user, get_mov_val_gatos(game, game.cat_user))
 
-        print("Raton puede mover a " + str(pos_validas))
 
         # Si puede avanzar
         if fila_de(min(pos_validas)) < fila_de(game.mouse):
@@ -250,7 +249,6 @@ def mueve_ia(game):
             puede_avanzar = False
 
         mov = avanzar(game.mouse, pos_validas, puede_avanzar)
-        print("elgido " + str(mov))
         Move.objects.create(game=game, origin=game.mouse,
                             target=mov,
                             player=game.mouse_user)
@@ -267,12 +265,9 @@ def avanzar(pos_raton, pos_validas, puede_avanzar):
             if fila_de(pos) > fila_de(pos_raton):
                 mov.append(pos)
 
-    print("Eligiendo entre " + str(mov))
-
     if len(mov) == 1:
         return mov[0]
     elif len(mov) > 1:
-        print(mov)
         return mov[randint(0, 1)]
     else:
         return -1  # Error
@@ -362,7 +357,6 @@ def rep_game(request):
 
     # Movimientos de esa partida
     movs = Move.objects.filter(game__id=gameid)
-    print(movs)
 
     context_dict = {"game": game}
 
