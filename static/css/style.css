@@ -48,6 +48,16 @@
       text-align: left;
     }
 }
+
+.raton_mamao{
+    margin-left: 25%;
+}
+
+@media screen and (max-width: 700px){
+    .raton_mamao{
+        margin-left: 0%;
+    }
+ }
 /*----- /BARRA DE SELECCION -----*/
 .titulo{
     color: #ddd;
@@ -116,8 +126,16 @@ body{
 @media screen and (max-width: 700px) {
     .content-game{
         display: block;
+    }
+
 }
 
+.has_ganado{
+    color: rgb(61, 255, 47);
+}
+
+.has_perdido{
+    color: red;
 }
 
 /*----- /Juego -----*/
@@ -375,3 +393,4 @@ input.login_input{
 input.login_input:hover{
     border-color: rgba(255,255,255,1);
 }
+

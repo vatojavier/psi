@@ -67,9 +67,9 @@
 
                     {% if game.cat_user.id == request.user.id %}
                         {% if game.ganador == 1 %}
-                            <br>HAS GANADO!
+                            <br><h3><span class="has_ganado">HAS GANADO</span></h3>
                         {% else %}
-                            <br> HAS PERDIDO
+                            <br><h3><span class="has_perdido">HAS PERDIDO</span></h3>
                         {% endif %}
                     {% endif %}
                 {% endif %}
@@ -104,10 +104,10 @@
                     {% else %}
                         {% if game.status == 3 %}
                             {% if game.mouse_user.id == request.user.id %}
-                                {% if game.gandor == 2 %}
-                                    <br>HAS GANADO
+                                {% if game.ganador == 2 %}
+                                    <br><h3><span class="has_ganado">HAS GANADO</span></h3>
                                 {% else %}
-                                    <br>HAS PERDIDO
+                                    <br><h3><span class="has_perdido">HAS PERDIDO</span></h3>
                                 {% endif %}
 
                             {% endif %}
